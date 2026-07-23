@@ -1475,7 +1475,7 @@ async function fetchRealInstagramData() {
         realInstagramData = data;
         
         // 1. Update Instagram Reach Metrics on UI
-        if (data.account) {
+        if (data.account && !data.account.error && data.account.followers_count !== undefined) {
             const igReach = document.getElementById('ig-reach');
             if (igReach) igReach.textContent = formatCompact(data.account.followers_count);
             
@@ -1500,7 +1500,7 @@ async function fetchRealInstagramData() {
         }
         
         // 2. Parse & Update Instagram Posts list
-        if (data.media && data.media.data) {
+        if (data.media && data.media.data && !data.media.error) {
             let totalLikes = 0;
             let totalComments = 0;
 
