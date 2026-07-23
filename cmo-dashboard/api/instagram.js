@@ -34,8 +34,8 @@ module.exports = async (req, res) => {
         return;
     }
 
-    const token = 'EAATKiM3PnvQBSKxmWwDfRwFLW27VaiZBF4HWZB8ZAvybyZA';
-    const igId = '17841464530048605';
+    const token = process.env.META_ACCESS_TOKEN || 'EAATKiM3PnvQBSKxmWwDfRwFLW27VaiZBF4HWZB8ZAvybyZA';
+    const igId = process.env.INSTAGRAM_BUSINESS_ID || '17841464530048605';
     
     const urlAccount = `https://graph.facebook.com/v25.0/${igId}?fields=name,username,followers_count,media_count&access_token=${token}`;
     const urlMedia = `https://graph.facebook.com/v25.0/${igId}/media?fields=caption,like_count,comments_count,media_url,timestamp,permalink,media_type&limit=15&access_token=${token}`;
