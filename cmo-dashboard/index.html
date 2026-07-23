@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CMO Dashboard - Marketing Center</title>
+  
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+  
+  <!-- Chart.js for beautiful graphs -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+  <!-- Lucide Icons via CDN for crisp modern icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <div class="app-container">
+    
+    <!-- ==========================================
+         SIDEBAR
+         ========================================== -->
+    <aside class="sidebar">
+      
+      <!-- Brand & Team Selector -->
+      <div class="team-dropdown">
+        <div class="team-selector" id="teamSelectorBtn">
+          <div class="team-info">
+            <span class="team-logo" id="activeTeamLogo">✨</span>
+            <div class="team-details">
+              <span class="team-label">Team</span>
+              <span class="team-name" id="activeTeamName">Pure Glow</span>
+            </div>
+          </div>
+          <i data-lucide="chevrons-up-down" style="width: 16px; height: 16px; color: var(--text-light);"></i>
+        </div>
+        
+        <!-- Dropdown Options -->
+        <div class="team-dropdown-menu" id="teamDropdownMenu">
+          <!-- Populated dynamically via JS -->
+        </div>
+      </div>
+      
+      <!-- Navigation Menu -->
+      <nav class="menu-section">
+        <h3 class="menu-title">Menu</h3>
+        <ul class="menu-list" id="sidebarMenuList">
+          <li class="menu-item active" data-page="overview">
+            <a href="#">
+              <span class="menu-item-left">
+                <i data-lucide="layout-dashboard"></i>
+                Overview
+              </span>
+              <i data-lucide="chevron-right" class="chevron" style="width: 14px; height: 14px;"></i>
+            </a>
+          </li>
+          <li class="menu-item" data-page="social">
+            <a href="#">
+              <span class="menu-item-left">
+                <i data-lucide="instagram"></i>
+                Social Media
+              </span>
+              <i data-lucide="chevron-right" class="chevron" style="width: 14px; height: 14px;"></i>
+            </a>
+          </li>
+          <li class="menu-item" data-page="ads">
+            <a href="#">
+              <span class="menu-item-left">
+                <i data-lucide="megaphone"></i>
+                Ads & Paid
+              </span>
+              <i data-lucide="chevron-right" class="chevron" style="width: 14px; height: 14px;"></i>
+            </a>
+          </li>
+          <li class="menu-item" data-page="seo">
+            <a href="#">
+              <span class="menu-item-left">
+                <i data-lucide="search"></i>
+                SEO Optimization
+              </span>
+              <i data-lucide="chevron-right" class="chevron" style="width: 14px; height: 14px;"></i>
+            </a>
+          </li>
+          <li class="menu-item" data-page="crm">
+            <a href="#">
+              <span class="menu-item-left">
+                <i data-lucide="users"></i>
+                CRM & Email
+              </span>
+              <i data-lucide="chevron-right" class="chevron" style="width: 14px; height: 14px;"></i>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      
+      <!-- Support Section -->
+      <div class="menu-section">
+        <h3 class="menu-title">Support</h3>
+        <ul class="menu-list">
+          <li class="menu-item" id="addCustomMenuBtn">
+            <a href="#" style="color: var(--primary); font-weight: 600;">
+              <span class="menu-item-left">
+                <i data-lucide="plus-circle"></i>
+                Add Custom Channel
+              </span>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="#">
+              <span class="menu-item-left">
+                <i data-lucide="help-circle"></i>
+                Helps
+              </span>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="#">
+              <span class="menu-item-left">
+                <i data-lucide="settings"></i>
+                Settings & Integration
+              </span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+      <!-- Pro Card -->
+      <div class="pro-card">
+        <div class="pro-title">
+          <i data-lucide="zap" style="fill: currentColor;"></i>
+          <span>CMO Engine AI</span>
+        </div>
+        <p class="pro-desc">Agentic AI integration active. Get real-time campaign fixes directly executable on one click.</p>
+        <button class="pro-btn">Upgrade to Enterprise</button>
+      </div>
+      
+    </aside>
+    
+    <!-- ==========================================
+         MAIN CONTENT
+         ========================================== -->
+    <main class="main-content">
+      
+      <!-- Main Header -->
+      <header class="header">
+        <div class="header-left">
+          <h1 class="page-title" id="mainPageTitle">Overview</h1>
+          <p class="page-subtitle" id="mainPageSubtitle">Sales & Marketing Performance Dashboard</p>
+        </div>
+        <div class="header-right">
+          <div class="search-box">
+            <i data-lucide="search"></i>
+            <input type="text" placeholder="Search campaigns, products...">
+          </div>
+          <button class="icon-btn">
+            <i data-lucide="bell" style="width: 20px; height: 20px;"></i>
+            <span class="badge-dot"></span>
+          </button>
+          <div class="user-profile">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150" alt="Rifqy A." class="user-avatar">
+            <div class="user-info">
+              <span class="user-name">Rifqy A.</span>
+              <span class="user-role">Chief Marketing Officer</span>
+            </div>
+          </div>
+        </div>
+      </header>
+      
+      <!-- Filters bar -->
+      <section class="filter-bar">
+        <div class="filter-left">
+          <button class="filter-btn">
+            <i data-lucide="calendar" style="width: 16px; height: 16px;"></i>
+            <span>Last 6 Month</span>
+            <i data-lucide="chevron-down" style="width: 14px; height: 14px;"></i>
+          </button>
+          <button class="filter-btn">
+            <i data-lucide="store" style="width: 16px; height: 16px;"></i>
+            <span>Select Store</span>
+            <i data-lucide="chevron-down" style="width: 14px; height: 14px;"></i>
+          </button>
+        </div>
+        <div class="filter-right">
+          <button class="btn-secondary-outline" id="refreshBtn">
+            <i data-lucide="refresh-cw" style="width: 16px; height: 16px;"></i>
+            <span>Refresh</span>
+          </button>
+          <button class="btn-secondary-outline">
+            <i data-lucide="sliders" style="width: 16px; height: 16px;"></i>
+            <span>Customize</span>
+          </button>
+          <button class="btn-primary">
+            <i data-lucide="download" style="width: 16px; height: 16px;"></i>
+            <span>Download</span>
+          </button>
+        </div>
+      </section>
+      
+      <!-- Content Viewport -->
+      <div class="content-viewport" id="contentViewport">
+        
+        <!-- ==========================================
+             PAGE: OVERVIEW
+             ========================================== -->
+        <div class="page-view active" id="page-overview">
+          
+          <!-- Top metric cards -->
+          <div class="metrics-grid">
+            <div class="metric-card sales">
+              <div class="metric-header">
+                <div class="metric-title-block">
+                  <div class="metric-icon-wrapper">
+                    <i data-lucide="dollar-sign"></i>
+                  </div>
+                  <div>
+                    <h4 class="metric-title">Total Sales</h4>
+                    <p class="metric-subtitle">Total sales over the last 6 months.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="metric-value-row">
+                <span class="metric-value" id="ovSalesValue">$40,650.20</span>
+                <span class="trend-badge up" id="ovSalesChange">+18%</span>
+              </div>
+            </div>
+            
+            <div class="metric-card profit">
+              <div class="metric-header">
+                <div class="metric-title-block">
+                  <div class="metric-icon-wrapper">
+                    <i data-lucide="trending-up"></i>
+                  </div>
+                  <div>
+                    <h4 class="metric-title">Total Profit</h4>
+                    <p class="metric-subtitle">Total profit over the last 6 months.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="metric-value-row">
+                <span class="metric-value" id="ovProfitValue">$15,486.80</span>
+                <span class="trend-badge down" id="ovProfitChange">-14%</span>
+              </div>
+            </div>
+            
+            <div class="metric-card costs">
+              <div class="metric-header">
+                <div class="metric-title-block">
+                  <div class="metric-icon-wrapper">
+                    <i data-lucide="shopping-bag"></i>
+                  </div>
+                  <div>
+                    <h4 class="metric-title">Advertising Costs</h4>
+                    <p class="metric-subtitle">Advertising costs for the last 6 months.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="metric-value-row">
+                <span class="metric-value" id="ovAdsValue">$2,982.60</span>
+                <span class="trend-badge up" id="ovAdsChange">+16%</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Mid row: charts and details -->
+          <div class="dashboard-row">
+            <!-- Profit & Loss Graph -->
+            <div class="widget-card">
+              <div class="widget-header">
+                <div>
+                  <h3 class="widget-title">Profit and Loss</h3>
+                  <p class="widget-subtitle">Company's revenues and expenses.</p>
+                </div>
+                <a href="#" class="widget-action">Detailed Report</a>
+              </div>
+              <div class="chart-container">
+                <canvas id="profitAndLossChart"></canvas>
+              </div>
+            </div>
+            
+            <!-- Product Sale widget -->
+            <div class="widget-card">
+              <div class="widget-header">
+                <div>
+                  <h3 class="widget-title">Product Sale</h3>
+                  <p class="widget-subtitle">Number of products sold in branches.</p>
+                </div>
+              </div>
+              <div class="product-sale-list" id="productSaleList">
+                <!-- Loaded dynamically -->
+              </div>
+            </div>
+          </div>
+          
+          <!-- Bottom Row: Line chart and influencer reach -->
+          <div class="dashboard-row" style="grid-template-columns: 2fr 1fr;">
+            
+            <!-- Sales and Target Overtime -->
+            <div class="widget-card">
+              <div class="widget-header">
+                <div>
+                  <h3 class="widget-title">Sales and Target Overtime</h3>
+                  <p class="widget-subtitle">Company sales target for the last 6 months.</p>
+                </div>
+              </div>
+              <div class="chart-container">
+                <canvas id="salesAndTargetChart"></canvas>
+              </div>
+            </div>
+            
+            <!-- Influencer Reach widget -->
+            <div class="widget-card">
+              <div class="widget-header">
+                <div>
+                  <h3 class="widget-title">Influencers</h3>
+                  <p class="widget-subtitle">Influencers with the best insights.</p>
+                </div>
+              </div>
+              <div class="influencer-list" id="influencerList">
+                <!-- Loaded dynamically -->
+              </div>
+            </div>
+            
+          </div>
+          
+          <!-- Social Media Distribution widget -->
+          <div class="widget-card" style="margin-bottom: 28px;">
+            <div class="widget-header">
+              <div>
+                <h3 class="widget-title">Social Distribution</h3>
+                <p class="widget-subtitle">User access across platforms.</p>
+              </div>
+            </div>
+            <div class="social-dist-list" id="socialDistList">
+              <!-- Loaded dynamically -->
+            </div>
+          </div>
+          
+        </div>
+        
+        <!-- ==========================================
+             PAGE: SOCIAL MEDIA
+             ========================================== -->
+        <div class="page-view" id="page-social">
+          
+          <!-- Top Row: Overview (Connected Accounts) & Top 3 Konten -->
+          <div class="dashboard-row" style="grid-template-columns: 1.6fr 1.4fr;">
+            
+            <!-- Connected Accounts Widget -->
+            <div class="widget-card">
+              <div class="widget-header">
+                <div>
+                  <h3 class="widget-title">Overview</h3>
+                  <p class="widget-subtitle">Connected accounts</p>
+                </div>
+                <div class="filter-left" style="gap: 8px; font-size: 0.75rem; color: var(--text-muted); align-items: center;">
+                  <span id="overviewRefreshedText">Refreshed 15 sec ago</span>
+                  <button class="filter-btn" id="socialOverviewRefreshBtn" style="padding: 6px 10px; font-size: 0.75rem;">
+                    <i data-lucide="refresh-cw" style="width: 12px; height: 12px;"></i>
+                    <span>Refresh</span>
+                  </button>
+                </div>
+              </div>
+              
+              <!-- Cards Flex -->
+              <div class="connected-accounts-grid">
+                <!-- Facebook Card -->
+                <div class="account-card facebook">
+                  <div class="account-card-header">
+                    <span class="account-icon fb"><i data-lucide="facebook"></i></span>
+                    <span class="account-name">Facebook</span>
+                  </div>
+                  <div class="account-followers-row">
+                    <span class="account-followers-val" id="fbFollowersVal">12,483</span>
+                    <span class="account-followers-change" id="fbFollowersChange">+1,001</span>
+                  </div>
+                  <span class="account-followers-lbl">Followers</span>
+                  <div class="account-submetrics">
+                    <div class="submetric-item">
+                      <span class="submetric-lbl">COMMENTS</span>
+                      <span class="submetric-val" id="fbCommentsVal">1,505</span>
+                    </div>
+                    <div class="submetric-item">
+                      <span class="submetric-lbl">LIKES</span>
+                      <span class="submetric-val" id="fbLikesVal">29,982</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Instagram Card -->
+                <div class="account-card instagram">
+                  <div class="account-card-header">
+                    <span class="account-icon ig"><i data-lucide="instagram"></i></span>
+                    <span class="account-name">Instagram</span>
+                  </div>
+                  <div class="account-followers-row">
+                    <span class="account-followers-val" id="igFollowersVal">15,629</span>
+                    <span class="account-followers-change" id="igFollowersChange">+1,571</span>
+                  </div>
+                  <span class="account-followers-lbl">Followers</span>
+                  <div class="account-submetrics">
+                    <div class="submetric-item">
+                      <span class="submetric-lbl">COMMENTS</span>
+                      <span class="submetric-val" id="igCommentsVal">141</span>
+                    </div>
+                    <div class="submetric-item">
+                      <span class="submetric-lbl">LIKES</span>
+                      <span class="submetric-val" id="igLikesVal">20</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Top 3 Konten Widget -->
+            <div class="widget-card">
+              <div class="widget-header">
+                <h3 class="widget-title">Top 3 Konten</h3>
+                <span class="badge-pill" style="font-size: 0.7rem; font-weight: 700; color: #3B82F6; background-color: #EFF6FF; padding: 4px 10px; border-radius: 20px;">BULAN INI</span>
+              </div>
+              <div class="top-content-list" id="topContentList">
+                <!-- Dynamically populated in app.js -->
+              </div>
+            </div>
+            
+          </div>
+          
+          <!-- Middle Row: Engagement widget with Line Chart and Breakdown cards -->
+          <div class="widget-card" style="margin-bottom: 28px;">
+            <div class="widget-header">
+              <div style="display: flex; align-items: center; gap: 16px;">
+                <h3 class="widget-title" style="font-size: 1.15rem; font-weight: 800;">Engagement</h3>
+                <!-- Platform Tab Buttons -->
+                <div class="platform-tabs">
+                  <button class="platform-tab active" id="tabIgBtn">
+                    <span class="dot ig"></span>
+                    Instagram
+                  </button>
+                  <button class="platform-tab" id="tabFbBtn">
+                    <span class="dot fb"></span>
+                    Facebook
+                  </button>
+                </div>
+              </div>
+              
+              <div class="filter-left" style="gap: 12px; align-items: center;">
+                <!-- 1 Day Dropdown -->
+                <select class="filter-select" id="engagementPeriodSelect" style="padding: 6px 12px; font-size: 0.8rem; font-weight: 600; border-radius: 8px; border: 1px solid var(--border-color);">
+                  <option value="1">1 Day</option>
+                  <option value="7">7 Days</option>
+                  <option value="30">30 Days</option>
+                </select>
+                <span id="engagementRefreshedText" style="font-size: 0.75rem; color: var(--text-muted);">Refreshed 26s ago</span>
+                <button class="filter-btn" id="socialEngagementRefreshBtn" style="padding: 6px 10px; font-size: 0.75rem;">
+                  <i data-lucide="refresh-cw" style="width: 12px; height: 12px;"></i>
+                  <span>Refresh</span>
+                </button>
+              </div>
+            </div>
+            
+            <!-- Engagement line chart container -->
+            <div class="chart-container" style="height: 250px; position: relative; margin-bottom: 24px;">
+              <canvas id="socialEngagementChart"></canvas>
+              <!-- Glowing pill on chart overlay -->
+              <div class="chart-glowing-pill" id="engagementChartPill">+3,478</div>
+            </div>
+            
+            <!-- Breakdown Title -->
+            <h4 style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 16px;">Engagement Details Breakdown</h4>
+            
+            <!-- Breakdown Grid -->
+            <div class="engagement-breakdown-grid">
+              <div class="breakdown-box">
+                <span class="breakdown-icon"><i data-lucide="heart" style="color: #EF4444; fill: #EF4444;"></i> Likes</span>
+                <span class="breakdown-value" id="ebLikes">7</span>
+              </div>
+              <div class="breakdown-box">
+                <span class="breakdown-icon"><i data-lucide="message-square" style="color: #3B82F6;"></i> Comments</span>
+                <span class="breakdown-value" id="ebComments">141</span>
+              </div>
+              <div class="breakdown-box">
+                <span class="breakdown-icon"><i data-lucide="share-2" style="color: #10B981;"></i> Shares</span>
+                <span class="breakdown-value" id="ebShares">1,416</span>
+              </div>
+              <div class="breakdown-box">
+                <span class="breakdown-icon"><i data-lucide="bookmark" style="color: #F59E0B;"></i> Saves</span>
+                <span class="breakdown-value" id="ebSaves">2,816</span>
+              </div>
+              <div class="breakdown-box">
+                <span class="breakdown-icon"><i data-lucide="bar-chart-2" style="color: #6366F1;"></i> Impressions</span>
+                <span class="breakdown-value" id="ebImpressions">281,360</span>
+              </div>
+              <div class="breakdown-box">
+                <span class="breakdown-icon"><i data-lucide="users" style="color: #8B5CF6;"></i> Reach</span>
+                <span class="breakdown-value" id="ebReach">203,200</span>
+              </div>
+              <div class="breakdown-box">
+                <span class="breakdown-icon"><i data-lucide="eye" style="color: #EC4899;"></i> Post Views</span>
+                <span class="breakdown-value" id="ebViews">234,484</span>
+              </div>
+            </div>
+            
+          </div>
+          
+          <!-- Recommendations -->
+          <div class="recommendations-section">
+            <div class="section-header">
+              <i data-lucide="sparkles"></i>
+              <h2 class="section-title">AI Optimization Recommendations</h2>
+            </div>
+            <div class="recommendations-grid" id="socialRecommendationsGrid">
+              <!-- Loaded dynamically -->
+            </div>
+          </div>
+        </div>
+        
+        <!-- ==========================================
+             PAGE: ADS & PAID CAMPAIGNS
+             ========================================== -->
+        <div class="page-view" id="page-ads">
+          <div class="metrics-grid">
+            <div class="metric-card">
+              <div class="metric-header">
+                <span class="metric-title">Total Ad Spend</span>
+                <i data-lucide="dollar-sign" style="color: var(--secondary);"></i>
+              </div>
+              <div class="metric-value-row">
+                <span class="metric-value" id="adTotalSpend">$2,982.60</span>
+              </div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-header">
+                <span class="metric-title">Account ROAS</span>
+                <i data-lucide="trending-up" style="color: var(--success);"></i>
+              </div>
+              <div class="metric-value-row">
+                <span class="metric-value" id="adRoas">2.8x</span>
+              </div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-header">
+                <span class="metric-title">Avg. CPC</span>
+                <i data-lucide="mouse-pointer" style="color: var(--primary);"></i>
+              </div>
+              <div class="metric-value-row">
+                <span class="metric-value" id="adCpc">$0.45</span>
+              </div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-header">
+                <span class="metric-title">Avg. CTR</span>
+                <i data-lucide="percent" style="color: var(--primary);"></i>
+              </div>
+              <div class="metric-value-row">
+                <span class="metric-value" id="adCtr">2.15%</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="widget-card" style="margin-bottom: 28px;">
+            <div class="widget-header">
+              <h3 class="widget-title">Active Ad Platforms</h3>
+            </div>
+            <div class="data-table-wrapper">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Platform</th>
+                    <th>Spend</th>
+                    <th>Revenue</th>
+                    <th>ROAS</th>
+                    <th>CTR</th>
+                    <th>CPC</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="adsTableBody">
+                  <!-- Populated dynamically -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+          
+          <!-- Recommendations -->
+          <div class="recommendations-section">
+            <div class="section-header">
+              <i data-lucide="sparkles"></i>
+              <h2 class="section-title">AI Optimization Recommendations</h2>
+            </div>
+            <div class="recommendations-grid" id="adsRecommendationsGrid">
+              <!-- Loaded dynamically -->
+            </div>
+          </div>
+        </div>
+        
+        <!-- ==========================================
+             PAGE: SEO OPTIMIZATION
+             ========================================== -->
+        <div class="page-view" id="page-seo">
+          <div class="metrics-grid">
+            <div class="metric-card">
+              <div class="metric-header">
+                <span class="metric-title">Organic Traffic</span>
+                <i data-lucide="bar-chart-2" style="color: var(--primary);"></i>
+              </div>
+              <div class="metric-value-row">
+                <span class="metric-value" id="seoTraffic">45.2k</span>
+                <span class="trend-badge up" id="seoTrafficChange">+12.4%</span>
+              </div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-header">
+                <span class="metric-title">Keywords in Top 10</span>
+                <i data-lucide="award" style="color: var(--warning);"></i>
+              </div>
+              <div class="metric-value-row">
+                <span class="metric-value" id="seoKeywords">245</span>
+                <span class="trend-badge up" id="seoKeywordsChange">+18</span>
+              </div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-header">
+                <span class="metric-title">Domain Authority</span>
+                <i data-lucide="globe" style="color: var(--success);"></i>
+              </div>
+              <div class="metric-value-row">
+                <span class="metric-value" id="seoDomainAuth">42</span>
+              </div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-header">
+                <span class="metric-title">Site Health Score</span>
+                <i data-lucide="activity" style="color: var(--danger);"></i>
+              </div>
+              <div class="metric-value-row">
+                <span class="metric-value" id="seoHealth">88/100</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="widget-card" style="margin-bottom: 28px;">
+            <div class="widget-header">
+              <h3 class="widget-title">High-Impact Keywords</h3>
+            </div>
+            <div class="data-table-wrapper">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Keyword</th>
+                    <th>Average Position</th>
+                    <th>Search Volume</th>
+                    <th>Trend</th>
+                  </tr>
+                </thead>
+                <tbody id="seoKeywordsTableBody">
+                  <!-- Populated dynamically -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+          
+          <!-- Recommendations -->
+          <div class="recommendations-section">
+            <div class="section-header">
+              <i data-lucide="sparkles"></i>
+              <h2 class="section-title">AI Optimization Recommendations</h2>
+            </div>
+            <div class="recommendations-grid" id="seoRecommendationsGrid">
+              <!-- Loaded dynamically -->
+            </div>
+          </div>
+        </div>
+        
+        <!-- ==========================================
+             PAGE: CRM & EMAIL MARKETING
+             ========================================== -->
+        <div class="page-view" id="page-crm">
+          <div class="metrics-grid">
+            <div class="metric-card">
+              <div class="metric-header">
+                <span class="metric-title">Total Subscribers</span>
+                <i data-lucide="users-2" style="color: var(--primary);"></i>
+              </div>
+              <div class="metric-value-row">
+                <span class="metric-value" id="crmSubscribers">58.4k</span>
+                <span class="trend-badge up" id="crmSubscribersChange">+6.8%</span>
+              </div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-header">
+                <span class="metric-title">Avg. Email Open Rate</span>
+                <i data-lucide="mail-open" style="color: var(--success);"></i>
+              </div>
+              <div class="metric-value-row">
+                <span class="metric-value" id="crmOpenRate">24.5%</span>
+                <span class="trend-badge up" id="crmOpenRateChange">+2.1%</span>
+              </div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-header">
+                <span class="metric-title">Avg. CTR</span>
+                <i data-lucide="pointer" style="color: var(--primary);"></i>
+              </div>
+              <div class="metric-value-row">
+                <span class="metric-value" id="crmCtr">3.8%</span>
+                <span class="trend-badge up" id="crmCtrChange">+0.5%</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="widget-card" style="margin-bottom: 28px;">
+            <div class="widget-header">
+              <h3 class="widget-title">Active CRM Flows</h3>
+            </div>
+            <div class="data-table-wrapper">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Flow / Campaign</th>
+                    <th>Sent</th>
+                    <th>Open Rate</th>
+                    <th>Click Rate</th>
+                    <th>Revenue Generated</th>
+                  </tr>
+                </thead>
+                <tbody id="crmCampaignsTableBody">
+                  <!-- Populated dynamically -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+          
+          <!-- Recommendations -->
+          <div class="recommendations-section">
+            <div class="section-header">
+              <i data-lucide="sparkles"></i>
+              <h2 class="section-title">AI Optimization Recommendations</h2>
+            </div>
+            <div class="recommendations-grid" id="crmRecommendationsGrid">
+              <!-- Loaded dynamically -->
+            </div>
+          </div>
+        </div>
+        
+        <!-- ==========================================
+             PAGE: CUSTOM / DYNAMIC TEMPLATE
+             ========================================== -->
+        <div class="page-view" id="page-custom-template">
+          <div class="metrics-grid" id="customMetricsGrid">
+            <!-- Dynamic cards go here -->
+          </div>
+          
+          <div class="widget-card" style="margin-bottom: 28px;">
+            <div class="widget-header">
+              <h3 class="widget-title" id="customWidgetTitle">Channel Log Activity</h3>
+            </div>
+            <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.5;">This channel was dynamically created. Use this viewport to add and monitor customized sub-marketing channels.</p>
+          </div>
+          
+          <!-- Dynamic recommendations placeholder -->
+          <div class="recommendations-section">
+            <div class="section-header">
+              <i data-lucide="sparkles"></i>
+              <h2 class="section-title">Dynamic Channel Recommendations</h2>
+            </div>
+            <div class="recommendations-grid" id="customRecommendationsGrid">
+              <div style="grid-column: 1 / -1; text-align: center; padding: 40px; border: 2px dashed var(--border-color); border-radius: var(--radius-lg); color: var(--text-muted);">
+                <i data-lucide="help-circle" style="width: 48px; height: 48px; stroke-width: 1px; margin-bottom: 12px; color: var(--text-light);"></i>
+                <p style="font-size: 0.9rem; font-weight: 600;">No recommendations generated yet</p>
+                <p style="font-size: 0.75rem; margin-top: 4px;">Connect integration endpoints in Settings to generate AI suggestions for this custom channel.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+      
+    </main>
+    
+  </div>
+
+  <!-- ==========================================
+       MODAL: AI AGENT EXECUTION TERMINAL
+       ========================================== -->
+  <div class="modal-overlay" id="terminalModalOverlay">
+    <div class="terminal-modal">
+      
+      <!-- Terminal Header -->
+      <div class="terminal-header">
+        <div class="terminal-title-row">
+          <div class="terminal-dots">
+            <span class="terminal-dot red"></span>
+            <span class="terminal-dot yellow"></span>
+            <span class="terminal-dot green"></span>
+          </div>
+          <span class="terminal-title">
+            <i data-lucide="bot" style="width: 18px; height: 18px;"></i>
+            <span>CMO Agentic Engine v2.0 - Active Workspace</span>
+          </span>
+        </div>
+        <button class="close-terminal-btn" id="closeTerminalBtn">&times;</button>
+      </div>
+      
+      <!-- Terminal Body -->
+      <div class="terminal-body">
+        
+        <!-- Rec Summary Box -->
+        <div class="terminal-rec-info">
+          <div class="terminal-rec-title" id="termRecTitle">Optimize Google Ads Bidding Strategy</div>
+          <div class="terminal-rec-desc" id="termRecDesc">Loading recommendation specifications...</div>
+          <div class="terminal-rec-impact">
+            <i data-lucide="zap" style="width: 14px; height: 14px; fill: currentColor;"></i>
+            <span id="termRecImpact">Reduces spend by $210/week</span>
+          </div>
+        </div>
+        
+        <!-- Command output -->
+        <div class="terminal-shell" id="terminalShell">
+          <div class="terminal-line cmd">run-optimization --id=rec-ads-1 --brand=pure-glow</div>
+          <div class="terminal-line info">Waiting for manual confirmation to initialize target API connections...</div>
+        </div>
+        
+      </div>
+      
+      <!-- Terminal Footer -->
+      <div class="terminal-footer">
+        <!-- Progress bar hidden initially -->
+        <div class="terminal-progress-container" id="terminalProgressContainer">
+          <div class="terminal-progress-bar">
+            <div class="terminal-progress-fill" id="terminalProgressFill"></div>
+          </div>
+          <span class="terminal-progress-pct" id="terminalProgressPct">0%</span>
+        </div>
+        
+        <!-- Control buttons -->
+        <button class="btn-secondary-outline" id="abortBtn">Abort</button>
+        <button class="btn-primary" id="approveRunBtn" style="background: linear-gradient(135deg, var(--success) 0%, #059669 100%); box-shadow: 0 4px 10px rgba(16, 185, 129, 0.2);">
+          <i data-lucide="play" style="width: 16px; height: 16px;"></i>
+          <span>Approve & Run Fix</span>
+        </button>
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- ==========================================
+       MODAL: ADD DYNAMIC MENU
+       ========================================== -->
+  <div class="modal-overlay" id="addMenuModalOverlay">
+    <div class="terminal-modal" style="width: 500px; background-color: #FFF; border: 1px solid var(--border-color); color: var(--text-main);">
+      
+      <!-- Header -->
+      <div class="terminal-header" style="background-color: var(--border-light); border-bottom: 1px solid var(--border-color);">
+        <span class="terminal-title" style="color: var(--text-main);">
+          <i data-lucide="plus-circle" style="color: var(--primary);"></i>
+          <span>Add Custom Channel</span>
+        </span>
+        <button class="close-terminal-btn" id="closeAddMenuBtn" style="color: var(--text-muted);">&times;</button>
+      </div>
+      
+      <!-- Body -->
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="newMenuName">Channel Name</label>
+          <input type="text" id="newMenuName" placeholder="e.g. Affiliate Marketing, YouTube Ads">
+        </div>
+        <div class="form-group">
+          <label for="newMenuIcon">Select Icon</label>
+          <select id="newMenuIcon">
+            <option value="link">Link / Affiliates</option>
+            <option value="youtube">YouTube</option>
+            <option value="mail">Newsletter</option>
+            <option value="shopping-cart">E-commerce Shop</option>
+            <option value="trending-up">Analytics</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="newMenuKPI">Primary KPI Label</label>
+          <input type="text" id="newMenuKPI" placeholder="e.g. Active Partners, Conversions">
+        </div>
+        <div class="form-group">
+          <label for="newMenuKPIVal">Initial KPI Value</label>
+          <input type="text" id="newMenuKPIVal" placeholder="e.g. 1,420, $12,500">
+        </div>
+      </div>
+      
+      <!-- Footer -->
+      <div class="terminal-footer" style="background-color: var(--border-light); border-top: 1px solid var(--border-color);">
+        <button class="btn-secondary-outline" id="cancelAddMenuBtn">Cancel</button>
+        <button class="btn-primary" id="saveCustomMenuBtn">Create Channel</button>
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- Main JavaScript File -->
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
